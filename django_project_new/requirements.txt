@@ -1,0 +1,10 @@
+Django~=3.2.9
+Pillow==8.4.0
+django-crispy-forms~=1.13.0
+gunicorn
+django-heroku
+whitenoise
+psycopg2
+django-resized
+django-storages
+

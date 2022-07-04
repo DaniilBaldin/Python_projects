@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Astronauts on the orbit</title>
+    <script>
+        const myXHR = new XMLHttpRequest();
+        myXHR.open("GET", 'http://api.open-notify.org/astros.json');  // configuring request
+        myXHR.send();
+        myXHR.onload = function() {
+            let data = JSON.parse(myXHR.responseText).people;
+            data.forEach(i => (console.log(i["name"] + ' on the spacecraft ' + i["craft"])))
+        }
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

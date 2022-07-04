@@ -1,0 +1,10 @@
+git cherry-pick <commit-hash> - Скопировать комит с другой бренчи
+git branch -r - Вывести список всех бренчей на сервере
+git branch --list 'feature' - Вывести список всех локальных бренчей в именах которых есть слово feature
+git revert <commit> - Отменить комит, то есть создать комит в котором будут отменены предыдущее изменения
+git reset --merge <commit_before_merge> - Отменить мердж комит
+git log -2 - Показать два последних комита в истории
+git config --global alias.purr pull --rebase - Создать алиас purr который будет делать pull --rebase
+git push origin name1:name2 - Запушать бренчу name1 на сервер так что бы на сервере она имела имя name2
+git commit --amend -m "New commit message." - Изменить коммит месседж
+git add -A - Добавить в stage (git add) все измененные и новые файлы

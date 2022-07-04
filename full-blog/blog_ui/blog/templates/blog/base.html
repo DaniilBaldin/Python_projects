@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block title %}
+    {% endblock %}
+    <meta charset="UTF-8">
+    <title>All posts</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<style>
+    body{
+    background-color: #0000FF;
+    };
+</style>
+{% block content %}
+<script>
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:80/api/all_posts/?format=json');
+    xhr.send();
+    xhr.onload = function(){
+        console.log('Loaded.',xhr.status, xhr.response);
+        const data = JSON.parse(xhr.responseText).posts;
+        const body = document.querySelector('body');
+        const div = document.createElement('div');
+        body.append(div);
+        div.setAttribute('class', 'container')
+        var count = 0;
+        for (let item = 0; item < (data.length - data.length%3)/3 + 1; item++){
+            const row = document.createElement('div');
+            div.append(row);
+            row.setAttribute('class', 'row');
+            for (let i = 0; i < 3; i++){
+                if (data.length - 1 < i + count){
+                    break;
+                };
+                const col = document.createElement('div');
+                row.append(col);
+                col.setAttribute('class','col-sm-4');
+                const div_1 = document.createElement('div');
+                const div_1_1 = document.createElement('div');
+                const div_1_2 = document.createElement('div');
+                const div_1_3 = document.createElement('div');
+                const h3 = document.createElement('h3');
+                const a_title = document.createElement('a');
+                const img = document.createElement('img');
+                const span_cat = document.createElement('span');
+                const span_author = document.createElement('span');
+                const a_author = document.createElement('a');
+                const p_text = document.createElement('p');
+                const p_date = document.createElement('p');
+                // Append newly created elements into the DOM
+                col.append(div_1);
+                //div.append(div_1);
+                div_1.append(div_1_1);
+                div_1_1.append(h3);
+                h3.append(a_title);
+                a_title.innerHTML = data[i+count].title;
+                div_1_1.append(span_cat);
+                span_cat.innerHTML = 'Category:';
+                for (let j = 0; j < data[i+count].category.length; j++){
+                    const a_cat = document.createElement('a');
+                    div_1_1.append(a_cat);
+                    a_cat.innerHTML = data[i+count].category[j] + ' ';
+                    a_cat.setAttribute("class", "text-light");
+                    a_cat.setAttribute("href", '/' + 'category_posts' + '/' + data[i+count].category[j]);
+                };
+                div_1.append(div_1_2);
+                div_1_2.append(p_text);
+                p_text.innerHTML = data[i+count].text;
+                div_1.append(div_1_3);
+                div_1_3.append(span_author);
+                span_author.innerHTML = 'Author:';
+                div_1_3.append(a_author);
+                a_author.innerHTML = data[i+count].author;
+                div_1_3.append(p_date);
+                p_date.innerHTML = data[i+count].created_date;
+                 // Set content and attributes
+                div_1.setAttribute("class","card text-white-50 bg-dark border-dark mt-1 mb-3");
+                div_1_1.setAttribute("class", "card-header bg-transparent border-info");
+                h3.setAttribute("class", "card-title text-center font-weight-bold ");
+                a_title.setAttribute("class", "text-light");
+                a_title.setAttribute("href" , '/' + 'post' + '/' + data[i+count].id );
+                div_1_2.setAttribute("class", "card-body");
+                p_text.setAttribute("class", "card-text font-italic text-right text-truncate");
+                p_text.setAttribute("style", "max-width: 200px;");
+                div_1_3.setAttribute("class", "card-footer bg-transparent border-info");
+                a_author.setAttribute("class", "text-light");
+                a_author.setAttribute("href", '/' + 'author_posts' + '/' + data[i+count].author);
+            };
+        count = count + 3;
+        };
+    };
+    xhr.onerror = function(){
+        console.log('Connection Error');
+    };
+    xhr.onprogress = function(event){
+        console.log('Loaded',event.loaded,'from',event.total);
+    };
+</script>
+{% endblock %}
+</body>
+</html>

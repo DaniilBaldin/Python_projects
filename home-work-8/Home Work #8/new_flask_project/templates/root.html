@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block body %}
+{% if g.user %}
+<div class="container">
+  <ol>
+      <li style="color:#030e12">User login: {{ login }}</li>
+      <li style="color:#030e12">User name: {{ name }}</li>
+  </ol>
+  <div>
+      <a type="button" href="{{ url_for('auth.logout') }}">Logout.</a>
+  </div>
+</div>
+{% else %}
+<p> You can <a href="/signup"> register </a> or <a href="/login"> login </a> </p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+
+{% block main %}
+<ul>
+{% for astro in astros %}
+   <li>
+      <b>{{ astro.name }}</b>
+      <i>{{ astro.Craft }}</i>
+   </li>
+{% endfor %}
+</ul>
+{% endblock  %}

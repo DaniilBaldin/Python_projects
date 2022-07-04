@@ -1,0 +1,24 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'images/listia-osen-makro.jpg' %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'users/main.css' %}" />
+</head>
+<body>
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form action="{% url 'users:login' %}" method="post" class="form-inline">
+        {% csrf_token %}
+        <label class="whiteletter">Username</label>
+            {{ form.username }}
+        <label class="whiteletter">Password</label>
+            {{ form.password }}
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Enter</button>
+    </form>
+  </div>
+</nav>
+</body>
+</html>

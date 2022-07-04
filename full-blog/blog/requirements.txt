@@ -1,0 +1,9 @@
+django
+psycopg2-binary
+djangorestframework
+random-word
+pyyaml
+names
+Faker
+django-cors-headers
+

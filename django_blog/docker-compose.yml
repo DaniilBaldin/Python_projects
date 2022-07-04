@@ -1,0 +1,32 @@
+networks:
+  my_site:
+    driver: bridge
+    name: django-docker-network
+
+services:
+  db:
+    image: postgres:13
+    networks:
+      - my_site
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST=db
+    env_file:
+      - ./conf/postgres.env
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: daniil030791/django_blog:1.0
+    networks:
+      - my_site
+    ports:
+      - 8000:8000
+    env_file:
+      - ./conf/django.env
+    depends_on:
+      - db

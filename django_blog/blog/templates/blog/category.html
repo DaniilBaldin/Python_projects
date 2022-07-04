@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% block title%}
+<title>All posts: {{ category }}</title>
+{% endblock %}
+
+{% block home_page %}
+<h5>
+    <a href="{% url 'home'%}"><-Show All Posts</a>
+</h5>
+<div class="card-column">
+    {% for post in post_list %}
+    <div class="card text-white-50 bg-dark border-dark mt-1 mb-3 p-2">
+        <h3 >Title:
+            <a class="text-light" href="{% url 'blog:post_detail' slug=post.slug %}">
+                {{ post.title }}
+            </a>
+        </h3>
+        <h3>Category:
+            {% for cat in post.category.all %}
+            <a class="text-light"  href="{% url 'blog:category_list' pk=cat.pk %}" >
+                {{ cat }}
+                {% endfor %}
+            </a>
+        </h3>
+        <h3>Author:
+            <a class="text-light" href="{% url 'blog:author_list' author_pk=post.author.pk %}">
+                {{ post.author }}
+            </a>
+        </h3>
+        <p>Date: {{ post.post_time }}</p>
+        {% if user == post.author %}
+        <button type="button" class="btn btn-danger">
+            <p><a href="{% url 'blog:post_edit' slug=post.slug %}" class="text-black-50">
+                Edit
+            </a></p>
+        </button>
+        <button type="button" class="btn btn-warning">
+            <p><a href="{% url 'blog:post_delete' slug=post.slug %}" class="text-black-50">
+                Delete
+            </a></p>
+        </button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

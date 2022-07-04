@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+<title></title>
+{% endblock %}
+{% block content %}
+<script>
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:80/api/post/{{ pk }}?format=json');
+    xhr.send();
+    xhr.onload = function(){
+        console.log('Loaded.',xhr.status, xhr.response);
+        const data = JSON.parse(xhr.responseText).post;
+        var title = document.getElementsByClassName("card-title")[0];
+        title.innerHTML = data.title;
+        var text = document.getElementsByClassName("card-text font-italic")[0];
+        text.innerHTML = data.text;
+        var author = document.getElementById("author");
+        author.innerHTML = data.author;
+        author.setAttribute("href",'/' + 'author_posts' + '/' + data.author);
+        var time = document.getElementById("time");
+        time.innerHTML = data.created_date;
+        var main_title = document.querySelector('title');
+        main_title.innerHTML = 'Post Details' + ' ' + data.title;
+        for (let i = 0; i < data.category.length ; i++){
+            let categories = document.getElementById("categories");
+            let a = document.createElement("a");
+            categories.append(a);
+            a.innerHTML = data.category[i] + " ";
+            a.setAttribute("href", '/' + 'category_posts' + '/' + data.category[i]);
+        };
+    };
+    xhr.onerror = function(){
+        console.log('Connection Error');
+    };
+    xhr.onprogress = function(event) {
+    console.log('Loaded',event.loaded,'из',event.total);
+    };
+</script>
+<h5>
+    <a href="{% url 'all_post'%}"><-Go Back</a>
+</h5>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-white-50 text-center bg-dark border-dark mb-3 p-2">
+                <h1 class="card-title"></h1>
+                <h2 id="categories">Category:
+                </h2>
+                <h3 class="card-text font-italic">
+                    <p></p>
+                </h3>
+                <h4 class="text-left"><span>Author:</span>
+                    <a class="text-light" id="author">
+                    </a>
+                </h4>
+                <p class="text-left">Date
+                    <a id="time"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

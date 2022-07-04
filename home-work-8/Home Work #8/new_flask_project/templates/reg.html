@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login form
+{% endblock %}
+
+{% block body %}
+<h2> Please, enter your login, name and password to register. </h2>
+<form method="post">
+    <div>
+        <ul><label for="login">Login</label> <input name="login" id="login" required></ul>
+        <ul><label for="name">Name</label> <input name="name" id="name" required></ul>
+        <ul><label for="password">Password</label> <input type="password" name="password" id="password" required></ul>
+        <ul><input type="submit" value="Register"> </ul>
+    </div>
+</form>
+<hr/>
+<p>You can <a href="/login"> login </a> </p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html'%}
+{% block title %}
+  <title>New Category</title>
+{% endblock %}
+{% block content %}
+<form method="post" class="form border border-dark bg-dark text-white-50 p-3 mt-2 mb-2 w-25 h-auto ">
+  {% csrf_token %}
+  <label>Category Name</label>
+  {{ form.name }}
+  <button type="submit" class="save btn btn-success">Save</button>
+</form>
+{% endblock %}

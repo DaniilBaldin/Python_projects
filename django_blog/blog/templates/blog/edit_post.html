@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+<title>Edit Post</title>
+{% endblock %}
+{% block content %}
+<form method="post" class="form border border-dark bg-dark text-white-50 mt-2 p-3 mb-2 w-50 h-auto ">
+  {% csrf_token %}
+  {% if message %}
+   {{ message }}
+  {% endif %}
+  <div class="form-group ">
+    <label>Title</label>
+    <a class="form-control-sm">
+      {{ form.title }}
+    </a>
+  </div>
+  <div class="form-group ">
+    <label>Text</label>
+    <a class="form-control-sm">
+      {{ form.text}}
+    </a>
+  </div>
+  <div class="form-group">
+        <label>Category</label>
+    <a class="form-control-sm">
+      {{ form.category }}
+    </a>
+  </div>
+  <button type="submit" class="btn btn-success">Refresh</button>
+  <button type="button" class="save btn btn-warning">
+    <a href="{% url 'blog:add_category' %}">Add category</a>
+  </button>
+</form>
+
+{% endblock %}

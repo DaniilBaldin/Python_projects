@@ -1,0 +1,6 @@
+{% extends "index.html" %}
+
+{% block main %}
+<h1>{{ file_name }}</h1>
+<p>{{ file_content | replace('\n', '<br/>') }}</p>
+{% endblock %}
